@@ -1,0 +1,26 @@
+group 'Netty-RestAPI'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+version='1.01'
+
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile group: 'io.netty', name: 'netty-all', version: '4.0.31.Final'
+    compile group: 'org.springframework', name: 'spring-context', version: '4.1.6.RELEASE'
+    compile group: 'org.hsqldb', name: 'hsqldb', version: '2.3.3'
+    compile group: 'org.mybatis', name: 'mybatis', version: '3.3.0'
+    compile group: 'redis.clients', name: 'jedis', version: '2.7.3'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.6.2'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.6.2'
+    compile group: 'org.mybatis', name: 'mybatis-spring', version: '1.1.1'
+}

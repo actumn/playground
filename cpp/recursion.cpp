@@ -15,6 +15,8 @@ int main() {
     v1.push_back(30);
     v1.push_back(40);
     v1.push_back(50);
+    v1.pop_back();
+    v1.push_back(60);
 
     cout << v1[0] << ", " << v1.at(0) << ", " << v1.front() << endl; // 첫번째 원소
     cout << v1[4] << ", " << v1.at(4) << ", " << v1.back() << endl; //  마지막 원소

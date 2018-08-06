@@ -1,17 +1,19 @@
-package io.netty.restapi;
+package com.github.nettybook.ch9;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 import java.net.InetSocketAddress;
 
 /**
- * Created by SunMyeong Lee on 2016-08-30.
+ * Created by SunMyeong Lee on 2018-08-07.
  */
 @Configuration
-@ImportResource("classpath:spring/hsqlApplicationContext.xml")
-@ComponentScan("com.github.nettybook.ch9, com.github.nettybook.ch9.service")
+@ComponentScan("com.github.nettybook.ch9.service")
 @PropertySource("classpath:api-server.properties")
 public class ApiServerConfig {
     @Value("${boss.thread.count}")
@@ -38,7 +40,7 @@ public class ApiServerConfig {
     }
 
     @Bean(name = "tcpSocketAddress")
-    public InetSocketAddress tcpPort() {
+    public InetSocketAddress tcpPort(){
         return new InetSocketAddress(tcpPort);
     }
 

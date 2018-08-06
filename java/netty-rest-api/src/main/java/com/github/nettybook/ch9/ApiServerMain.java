@@ -1,10 +1,10 @@
-package io.netty.restapi;
+package com.github.nettybook.ch9;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 
 /**
- * Created by SunMyeong Lee on 2016-08-30.
+ * Created by SunMyeong Lee on 2018-08-07.
  */
 public class ApiServerMain {
     public static void main(String[] args) {

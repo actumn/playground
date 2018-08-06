@@ -1,4 +1,4 @@
-package io.netty.restapi;
+package com.github.nettybook.ch9;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
 import java.net.InetSocketAddress;
 
 /**
- * Created by SunMyeong Lee on 2016-08-30.
+ * Created by SunMyeong Lee on 2018-08-07.
  */
 @Component
-public class ApiServer {
+public final class ApiServer {
     @Autowired
     @Qualifier("tcpSocketAddress")
     private InetSocketAddress address;
@@ -32,26 +32,29 @@ public class ApiServer {
     private int bossThreadCount;
 
     public void start() {
-        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
+        EventLoopGroup bossGroup = new NioEventLoopGroup(bossThreadCount);
         EventLoopGroup workerGroup = new NioEventLoopGroup(workerThreadCount);
-        ChannelFuture channelFuture = null;
 
+        ChannelFuture channelFuture = null;
         try {
-            ServerBootstrap b = new ServerBootstrap();
-            b.group(bossGroup, workerGroup)
+            ServerBootstrap bootstrap = new ServerBootstrap();
+            bootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler(new ApiServerInitializer(null));
+                    .childHandler(new ApiServerInitalizer(null));
 
-            Channel ch = b.bind(8080).sync().channel();
+            Channel ch = bootstrap.bind(8080).sync().channel();
 
             channelFuture = ch.closeFuture();
             channelFuture.sync();
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
     }
+
 }

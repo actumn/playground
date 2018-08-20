@@ -1,0 +1,21 @@
+for is_prime(n)
+    return 0 ? n < 2
+    return 1 ? n == 2
+    return 0 ? n%2 == 0
+    i=3
+    while i*i <= n
+        if n%i == 0
+        return 0
+    end
+    return 1
+end
+
+func main()
+    for n=1 to 1000
+        if is_prime(n)
+            print n, " "
+        end
+    end
+    println ""
+end
+

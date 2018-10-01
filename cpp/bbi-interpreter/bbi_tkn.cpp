@@ -15,6 +15,8 @@ KeyWord KeyWdTbl[] = {			// 예약어, 심볼, 종별 대응 테이블
 	{ "while",	While	}, { "end",		End		},
 	{ "break",	Break	}, { "return",	Return	},
 	{ "print",	Print	}, { "println", Println	},
+	{ "option",	Option	}, { "input", 	Input	},
+	{ "toint",	Toint	}, { "exit",	Exit	},
 	{ "(",		Lparen	}, { ")",		Rparen	},
 	{ "[",		Lbracket}, { "]",		Rbracket},
 	{ "+",		Plus	}, { "-",		Minus	},
@@ -145,7 +147,7 @@ Token nextTkn()				// 다음 토큰
 
 bool is_ope2(char c1, char c2)			// 2문자 여산자면 참
 {
-	char s[] = "  ";
+	char s[] = "    ";
 	if (c1 == '\0' || c2 == '\0') return false;
 
 	s[1] = c1; s[2] = c2;

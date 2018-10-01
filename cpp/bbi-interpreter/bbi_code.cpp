@@ -338,7 +338,7 @@ int opOrder(TknKind kd)							// 이항 연산자 우선순위
 {
 	switch (kd) {
 	case Multi: case Divi: case Mod:
-	case IntDivi:						return 6;		// * / % \
+	case IntDivi:						return 6;		/* * / % \ */
 	case Plus: case Minus:				return 5;		// + -
 	case Less: case LessEq:
 	case Great: case GreatEq:			return 4;		// < <= > >=
@@ -354,7 +354,7 @@ void binaryExpr(TknKind op)						// 이항 연산
 {
 	double d = 0, d2 = stk.pop(), d1 = stk.pop();
 
-	if ((op == Divi || op == Mod || op == IntDivi) == d2 == 0)
+	if ((op == Divi || op == Mod || op == IntDivi) && d2 == 0)
 		err_exit("0으로 나누었습니다.");
 
 	switch (op) {
@@ -369,7 +369,7 @@ void binaryExpr(TknKind op)						// 이항 연산
 	case Great:		d = d1 > d2;	break;
 	case GreatEq:	d = d1 >= d2;	break;
 	case Equal:		d = d1 == d2;	break;
-	case NotEq:		d = d1 == d2;	break;
+	case NotEq:		d = d1 != d2;	break;
 	case And:		d = d1 && d2;	break;
 	case Or:		d = d1 || d2;	break;
 	}
@@ -481,7 +481,7 @@ void sysFncExec_syntax(TknKind kd)				// 내장 함수 검사
 		do {
 			code = nextCode();
 			if (code.kind == String)
-				code = nextCode();						// 문자열 출력 확인
+				code = nextCode();						// 문자열 출력
 			else
 				(void)get_expression();					// 값 출력 확인
 		} while (code.kind == ',');
@@ -610,21 +610,21 @@ CodeSet nextCode()								// 코드 획득
 	if (*code_ptr == '\0') return CodeSet(EofLine);
 	kd = (TknKind)*UCHAR_P(code_ptr++);
 	switch (kd) {
-		case Func:
-		case While: case For: case If: case Elif: case Else:
-			jmpAdrs = *SHORT_P(code_ptr); code_ptr += SHORT_SIZ;
-			return CodeSet(kd, -1, jmpAdrs);						// 점프할 주소
-		case String:
-			tblNbr = *SHORT_P(code_ptr); code_ptr += SHORT_SIZ;
-			return CodeSet(kd, strLITERAL[tblNbr].c_str());			// 문자열 리터럴 위치
-		case IntNum: case DblNum:
-			tblNbr = *SHORT_P(code_ptr); code_ptr += SHORT_SIZ;
-			return CodeSet(kd, nbrLITERAL[tblNbr]);					// 수치 리터럴
-		case Fcall: case Gvar: case Lvar:
-			tblNbr = *SHORT_P(code_ptr); code_ptr += SHORT_SIZ;
-			return CodeSet(kd, tblNbr, -1);
-		default:													// 부속 정보가 없는 코드
-			return CodeSet(kd);
+    case Func:
+    case While: case For: case If: case Elif: case Else:
+        jmpAdrs = *SHORT_P(code_ptr); code_ptr += SHORT_SIZ;
+        return CodeSet(kd, -1, jmpAdrs);						// 점프할 주소
+    case String:
+        tblNbr = *SHORT_P(code_ptr); code_ptr += SHORT_SIZ;
+        return CodeSet(kd, strLITERAL[tblNbr].c_str());			// 문자열 리터럴 위치
+    case IntNum: case DblNum:
+        tblNbr = *SHORT_P(code_ptr); code_ptr += SHORT_SIZ;
+        return CodeSet(kd, nbrLITERAL[tblNbr]);					// 수치 리터럴
+    case Fcall: case Gvar: case Lvar:
+        tblNbr = *SHORT_P(code_ptr); code_ptr += SHORT_SIZ;
+        return CodeSet(kd, tblNbr, -1);
+    default:													// 부속 정보가 없는 코드
+        return CodeSet(kd);
 	}
 }
 

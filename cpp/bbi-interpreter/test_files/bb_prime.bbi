@@ -1,11 +1,13 @@
-for is_prime(n)
-    return 0 ? n < 2
+func is_prime(n)
+    return 0 ? n < 2    // 2�����͑f���łȂ�
     return 1 ? n == 2
     return 0 ? n%2 == 0
     i=3
     while i*i <= n
         if n%i == 0
-        return 0
+            return 0
+        end
+        i = i + 2
     end
     return 1
 end

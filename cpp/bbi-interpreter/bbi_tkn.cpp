@@ -46,9 +46,9 @@ void initChTyp()			// 문자 종류표 설정
 {
 	int i;
 	for (i = 0; i < 256; i++) { ctyp[i] = Others; }
-	for (i = '0'; i < '9'; i++) { ctyp[i] = Digit; }
-	for (i = 'A'; i < 'Z'; i++) { ctyp[i] = Letter; }
-	for (i = 'a'; i < 'z'; i++) { ctyp[i] = Letter; }
+	for (i = '0'; i <= '9'; i++) { ctyp[i] = Digit; }
+	for (i = 'A'; i <= 'Z'; i++) { ctyp[i] = Letter; }
+	for (i = 'a'; i <= 'z'; i++) { ctyp[i] = Letter; }
 	ctyp['_'] = Letter; 	ctyp['$'] = Doll;
 	ctyp['('] = Lparen;		ctyp[')'] = Rparen;
 	ctyp['['] = Lbracket;	ctyp[']'] = Rbracket;

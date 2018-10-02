@@ -23,7 +23,7 @@ using namespace std;
 
 /*-------------- enum struct etc */
 enum TknKind {							// 토큰 요소
-	Lparen='(', Rparen=')', Lbracket='{', Rbracket='}', Plus='+', Minus='-',
+	Lparen='(', Rparen=')', Lbracket='[', Rbracket=']', Plus='+', Minus='-',
 	Multi='*', Divi='/', Mod='%', Not='!', Ifsub='?', Assign='=',
 	IntDivi='\\', Comma=',', DblQ='"',
 	Func=150, Var, If, Elif, Else, For, To, Step, While,

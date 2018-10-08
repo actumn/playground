@@ -64,6 +64,7 @@ class Trainer:
             if self.verbose:
                 print('=== epoch:' + str(self.current_epoch) + ', train acc:' + str(train_acc) + ', test acc:' + str(test_acc) + ' ===')
 
+        self.current_iter += 1
 
 
     def train(self):

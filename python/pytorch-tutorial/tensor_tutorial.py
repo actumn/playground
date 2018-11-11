@@ -49,6 +49,7 @@ print(x.item())
 
 
 # Numpy Bridge
+# torch tensor -> numpy array
 a = torch.ones(5)
 b = a.numpy()
 print(a)
@@ -56,3 +57,21 @@ print(b)
 a.add_(1)
 print(a)
 print(b)
+
+# numpy array -> torch tensor
+import numpy as np
+a = np.ones(5)
+b = torch.from_numpy(a)
+np.add(a, 1, out=a)
+print(a)
+print(b)
+
+
+# CUDA TENSOR
+if torch.cuda.is_available():
+    device = torch.device('cuda')           # CUDA device object
+    y = torch.ones_like(x, device=device)   # created a tensor on GPU
+    x = x.to(device)
+    z = x + y
+    print(z)
+    print(z.to('cpu', torch.double))

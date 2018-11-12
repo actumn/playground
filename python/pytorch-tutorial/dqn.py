@@ -14,7 +14,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 import torchvision.transforms as T
 
-from config import *
+from dqn_config import *
 
 
 # set up matplotlib
@@ -60,7 +60,8 @@ class DQN(nn.Module):
         x = F.relu(self.bn1(self.conv1(x)))
         x = F.relu(self.bn2(self.conv2(x)))
         x = F.relu(self.bn3(self.conv3(x)))
-        return self.head(x.view(x.size(0), -1))
+        x = x.view(x.size(0), -1)
+        return self.head(x)
 
 
 
@@ -86,7 +87,8 @@ def get_cart_location():
 
 
 def get_screen():
-    screen = env.render(mode='rgb_array').transpose((2, 0, 1))  # transpose into torch order (CHW)
+    screen = env.render(mode='rgb_array')
+    screen = screen.transpose((2, 0, 1))  # transpose into torch order (CHW)
     # Strip off the top and bottom of the screen
     screen = screen[:, 160:320]
     cart_location = get_cart_location()
@@ -103,8 +105,13 @@ def get_screen():
     # (this doesn't require a copy)
     screen = np.ascontiguousarray(screen, dtype=np.float32) / 255
     screen = torch.from_numpy(screen)
+    print(screen.shape)
     # Resize, and add a batch dimension (BCHW)
-    return resize(screen).unsqueeze(0).to(device)
+    screen = resize(screen)
+    print(screen.shape)
+    screen = screen.unsqueeze(0).to(device)
+    print(screen.shape)
+    return screen
 
 
 env.reset()
@@ -140,7 +147,8 @@ def select_action(state):
     steps_done += 1
     if sample > eps_threshold:
         with torch.no_grad():
-            return policy_net(state).max(1)[1].view(1, 1)
+            result = policy_net(state)
+            return result.max(1)[1].view(1, 1)
     else:
         return torch.tensor([[random.randrange(2)]], device=device, dtype=torch.long)
 

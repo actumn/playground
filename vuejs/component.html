@@ -1,0 +1,40 @@
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<div id="app">
+    <my-component></my-component>
+    <child-component v-bind:passed-data="message"></child-component>
+</div>
+
+<script>
+    Vue.component('my-component', {
+        template: '<div>{{ text }}}</div>',
+        data: function() {
+            return {
+                text: 'A custom component!'
+            }
+        }
+    })
+    Vue.component('child-component', {
+        props: ['passedData'],
+        template: '<p>{{ passedData }}</p>'
+    })
+
+    var localCmp = {
+        data: function() {
+            return {
+
+            }
+        },
+        template: '<hr>',
+        methods: {}
+    }
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue! from Parent Component'
+        },
+        components: {
+            'my-cmp': localCmp
+        }
+    })
+</script>

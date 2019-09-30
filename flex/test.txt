@@ -1,0 +1,7 @@
+/*asdfasdfasdfas*/
+asdasdasda
+/*asdasdasdasdasdasd*/
+/*
+commentwithnewline
+*/
+aaa

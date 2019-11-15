@@ -1,0 +1,32 @@
+Program : <Block> .
+
+Block : <DeclList> begin StmtList end
+DeclList : { Decl ; }
+Decl : ConstDecl | ProcDecl | VarDecl
+ConstDecl : 'const' ConstDeclItem { , ConstDeclItem }
+ConstDeclItem :Ident : Type = ConstExpr
+ConstExpr : Ident | Integer
+VarDecl : 'var' VarDeclItem { , VarDeclItem }
+VarDeclItem : Ident : Type
+ProcDecl : procedure Ident ( [ FormalDecl {, FormalDecl } ] ) ; Block Ident
+FormalDecl : Ident : Type
+Type : int
+
+StmtList : { Stmt ; }
+Stmt : CallStmt | AssignStmt | OutStmt | IfStmt |
+WhileStmt
+CallStmt : Ident ( [ Exprs ] )
+AssignStmt : LValue := Expr
+LValue : Ident
+OutStmt : output := Expr
+IfStmt : if Test then StmtList end
+WhileStmt : while Test do StmtList end
+Test : odd Sum | Sum Relop Sum
+
+Relop : '<=' | '<>' | '<' | '>=' | '>' | '='
+
+Exprs : Expr { , Expr }
+Expr : Sum
+Sum : Term { ('+' | '-') Term }
+Term : Factor { ('*' | '/') Factor }
+Factor : - Factor | LValue | Integer | input | ( Expr )

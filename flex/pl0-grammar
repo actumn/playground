@@ -1,0 +1,27 @@
+<Program> : <Block> '.'
+
+<Block> : <DCL> <STATEMENT>
+<DCL> : <CONST_DCL> <VAR_DCL> <PROC_DCL>
+
+<CONST_DCL> : 'const' <CONST_DCL_ITEM> { ',' <CONST_DCL_ITEM> } ';'
+<CONST_DCL_ITEM> : <ident> '=' <number>
+
+<VAR_DCL> : 'var' <VAR_DCL_ITEM> { ',' <VAR_DCL_ITEM> } ';' 
+<VAR_DCL_ITEM> : <ident>
+
+<PROC_DCL> : 'procedure' <ident> ';' <Block> ';'
+
+
+<STATEMENT> : <ASSIGNMENT_ST> | <CALL_ST> | <COMPOUND_ST> | <IF_ST> | <WHILE_ST>
+<ASSIGNMENT_ST> : <ident> ':=' <EXP>
+<CALL_ST> : 'call' <ident>
+<COMPOUND_ST> : 'begin' <STATEMENT> { ; <STATEMENT> } 'end'
+<IF_ST> : 'if' <CONDITION> 'then' <STATEMENT>
+<WHILE_ST> : 'while' <CONDITION> 'do' <STATEMENT>
+
+<CONDITION> : 'odd' <EXPRESSION> | <EXPRESSION> <CON_OPERATOR> <EXPRESSION>
+<CON_OPERATOR> : '<=' | '<>' | '<' | '>=' | '>' | '='
+
+<EXPRESSION> : { '+' | '-' } <TERM>
+<TERM> : <FACTOR> { ('*' | '/') <FACTOR> }
+<FACTOR> : <ident> | <number> | '(' <EXPRESSION> ')'

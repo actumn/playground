@@ -1,8 +1,9 @@
+For compile openmp test
 ```shellscript
-$ gcc -fopenmp test.c
 $ g++ -fopenmp test.cpp
 ```
 
+For working with large memory
 ```shellscript
 $ g++ -fopenmp column_memory_access.cpp
 $ ulimit -s unlimited

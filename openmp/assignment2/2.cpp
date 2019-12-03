@@ -18,7 +18,7 @@ void mxv(float (*matrix_a)[COLS], float (*matrix_b)[COLS], float (*result)[COLS]
 				float local_result = 0.0;
 			
 				for (int i = 0; i < ROWS; i++) {
-					local_result += matrix_a[ay][i] * matrix_b[i][bx];
+					local_result += matrix_a[ay][i] * matrix_b[bx][i];
 				}
 
 				result[ay][bx] = local_result;
@@ -36,7 +36,9 @@ int main(void) {
 	for (int j = 0; j < ROWS; j++) {
 		for (int i = 0; i < COLS; i++) {
 			matrix_a[j][i] = (((float)j) * COLS + (float)i) / ((float) 1000.);
-			matrix_b[j][i] = (((float)j) * COLS + (float)i) / ((float) 1000.);
+
+			// reverse assign for caching on matrix
+			matrix_b[i][j] = (((float)j) * COLS + (float)i) / ((float) 1000.);
 		}
 	}
 	

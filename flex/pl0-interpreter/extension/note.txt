@@ -1,4 +1,0 @@
-procedure aaa:
-function aaa(x, y, z):
-    return
-
